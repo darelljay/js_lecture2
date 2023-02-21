@@ -82,7 +82,7 @@ console.log(str2.trim());
 // const user_input = prompt("당신의 이름은?","김다렐")
 
 // confirm("전달할 메시지") -> boolean 데이터 반환 
-const user_confirm = confirm("둘중에 하나만 골라 yes or yes");
+// const user_confirm = confirm("둘중에 하나만 골라 yes or yes");
 
 // alert("로그인을 먼저 해주세요")
 // window.location.href = 'https://www.naver.com/'
@@ -109,7 +109,7 @@ clearInterval(theOtherHello);
 console.log(screen.width);
 console.log(screen.height);
 
-alert(screen.width + " "+ screen.height );
+// alert(screen.width + " "+ screen.height );
 
 // location : 브라우저와 관련된 현재 URL에 대한 정보, 새로소침 메서드를 호출
 
@@ -130,4 +130,155 @@ navigator.language;
 console.log(navigator.onLine); // 유저의 온라인 여부를 boolean값으로 반환 
 
 // 3. 문서 객체[ 모델(DOM) : HTML 문서 구조 -> jquery
+
+// 함수 : js 코드의 묶음, function 키워드를 사용하거나, arrow 함수 형태
+// 데이터를 전달하여 사용할수 있으며, 실행 결과를 반환할 수도 있다!
+
+// 호이스팅(hoisting) : 물건을 끌어올린다 사전적 저으이
+// 함수를 정의하기 전에 먼저 호출해도 문제 없음
+// 가장 기본적적인 함수 정의 방법에만 적용이 된다 
+sayHi()
+
+// 1.함수 정의 방법 
+function sayHi(){
+    console.log('hi~~~~~~~`')
+}
+// 2. 익명 함수
+
+const sayHI2 = function(){
+    console.log("hi~~~~~~~~2")
+}
+
+// 3. es6에서 등장한 화살표 함수
+
+const sayHi3 = () =>{
+    console.log('h1~~~~3')
+}
+
+// 4. function 생성자 : 안좋음. 알고는 있되 사용은 하지 말자 
+// const sayHi4 = new ('name','console.log("h1~~~")')
+
+//  매개변수: 함수를 실행하기 위해 필요한 값을 
+//  함수 외부에서 내부로 전달하기 위해 싸움!
+
+//  매개변수 parameter -> 함수를 정의할떄 함수 내부에서 변수처럼 사용,
+// 인수 arguments -> 함수를 호출할떄 지정, 갯수 타입에 제한이 없음
+
+// 함수 매개뱐수의 기본값 or undifined일떄만 적용    
+function add(x,y){
+    console.log(x=0,y=0); // 전달받은 값이 없다면 undifined 있으면 그 값을 리턴한다 
+
+    x = x || 0;
+    y = y || 0;
+
+
+    return x+y;
+}
+
+// 매개변수는 최대 3개를 넘지 말자 
+const student = {
+    name:"darell",
+    age:18,
+    height:181,
+    score:100
+}
+
+function printStudent(student){
+    student.name = "jason"
+    console.log(student.name)
+}
+
+printStudent(student)
+// 함수 호출 
+let res =  add(1,2);
+
+// js에서의 함수!! -> 매개변수 개수 <-> 인수의 개수 일치하는 체크 x 
+// 인수가 부족(덜 전달) -> 함수 내부에서는 부족한 데이터는 undifined처리
+// 인수가 과함(더 전달) -> 무시 (버러지 않고, arguments 객체에 저장)
+console.log(add(1))
+
+// 화살표 함수 조금 더 자세히 - Rest
+// teturn 생략된 상태!
+const multiply = (x,y) =>  x*y;
+
+// 만약 매개변수가 1개인 경우 괄호 생략 가능
+// 함수의 몸체가 1개인 경우, {} 생략 가능 
+const func1 = x => {console.log(x)};
+
+// 만약 매개변수가 없으면, 괄호 반드시 적어줘야 끝!
+const func2 = () => {};
+
+// 객체를 반화하는 경우 반드시 ()로 감싸주자
+// {} -> {return _______}와 동일
+const func3 = (id,pw) => ({id, pw});
+console.log(func3("darell",'jason1234'))
+
+// 화살표 함수 vs 일반 함수
+// 1.중복된 매개변수 이름 선언 여부
+function f1(a,a){
+    return a+a;
+}
+// 화살표 함수는 중복된 매개변수 이름 허용 하지 않음
+// const arrowF1 = (a,a) => a+a;
+
+// 화살표 함수는 this,arguments, super 사용 불가
+// this: 자기 자신(객체 본인)
+// super: 부모(객채가 상속받는 부모 객체)
+
+// arguments를 사용할 수 없다? -> 기번 인자가 불가능? -> xxxx
+// 화살표 함수: <Rest 파라미터> 방식을 사용
+
+// Rest 파라미터 : 함수에 전달된 인수들을 배열로 전달하는 방법
+// rest는 반드시 마지막 요소 단 1개만 사용 가능,
+function f2(...params){
+    console.log(params);
+    // ES6 부터 등장한 Rest요소를 사용하여 바로 배열 메서드 사용 
+    return  params.filter(num=>num>=5);
   
+}
+console.log(f2(1,2,3,4,5,6,7));
+
+// ES6에서 도입! 스프레드(spread) 문법 -> "..."
+// 하나로 뭉쳐져 있는 여러 값의 집합을 펼처서 개별적인 값의 목록으로 만듦!
+// spread 사용 가능 대상 : Array,String,DOM 컬랙션 
+// 순회할 수 있는 이터러블에서 사용 가능~~~
+//  for of 사용 가능한, 순회할 수 있는 이터러블에서 사용 가능~~~
+console.log(...[1,2,3])
+console.log(..."goodbye~~~")
+
+//스프레드 문법의 결과는 값이 아니다!
+// cosnt list = ...[1,2,3];
+// console.log(...{name:"darell",age:20}); (객체는 for of 반복 X)
+
+// 1.함수 호출시 인수에서 사용하는 경우
+console.log(Math.max(1,2,3,4,5));
+const numbers = [1,2,3,4,5,6,7,8,9,10,11,23,23,43,421,433,123412,421];
+console.log(Math.max(...numbers));  // 점점점을 빼면 NaN 값이 넘어옴 
+
+// 2. 배열 내부에서 사용하는 경우
+//concat 대신
+console.log([1,2].concat([3,4])) // ~Es5
+const arr = [...[1,2],...[3,4]] // ES6
+console.log(arr)
+
+// splice를 좀더 잘 쓰기 위해 
+// splice : 어떤 배열의 중간에 다른 배여르이 요소를 추가하거나 제거하기 위해 사용
+const arr1 = [1,4];
+const arr2 = [2,3];
+
+// [1,2,3,4]를 만들자 
+arr1.splice(1,0,...arr2); //[1,[2,3],4]
+
+// 배열의 복사를 위해 slice를 사용했음 (ES5)
+// (동일한 값을 갖는, 완전히 새로운 배열을 생성하는것)
+const origin = [10,20];
+const copy = origin.slice();
+
+const trendopy = [...origin]; //ES6
+
+// 객체가 내부에서 사용되는 경우 
+const obj1 = {x:1,y:2};
+const copryObj = {...obj1};
+
+const marged = {x:1,y:2,...{a:3,b:4} }
+
